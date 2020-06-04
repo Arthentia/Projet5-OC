@@ -1,23 +1,45 @@
 <!doctype html>
-<html lang="eng">
+<html lang="fr">
 <head>
+    <link href="fontawesome-free-5.13.0-web/css/all.css" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="main.js"></script>
-
     <title>Orinoco</title> 
 </head>
 
 <body>
     
     <div class="produits">
-        <div id="ours">Ours en peluche</div>
-        <div id="caméras">Caméras vintage</div>
-        <div id="meubles">Meubles en chêne</div>
-    </div>
+        <div id="ours">
+            <a class="cam_img" href="ours.html"><img src="images/vcam_1.jpg" alt="photo caméra" height="80"/></a>        
+        </div>
 
- 
+        <div id="cameras">
+            <a class="cam_img" href="ours.html"><img src="images/vcam_1.jpg" alt="photo caméra" height="80"/></a>
+            Caméras vintage
+            <form>
+                <label for="quantite">Quantité:</label>
+                <input type="qty" name="quantite" id="quantite" value="1" required>
+                <input type="submit" value="Ajouter au panier">
+            </form>
+        </div>
+        <div id="meubles">
+            <a class="meubles_img" href="ours.html"><img src="images/oak_1.jpg" alt="photo meubles" height="80"/></a>
+            Meubles en chêne
+            <form>
+                <label for="quantite">Quantité:</label>
+                <select name="quantite" id="quantite">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="+">4+</option>
+                </select>
+            </form>
+        </div>
+        <script type="text/javascript" src="main.js"></script>
+        
+    </div>
 </body>
 </html>

@@ -20,3 +20,11 @@ form > #quantite{
     width:20px;
     text-align: center;
 }
+
+.cartbox{
+  margin-left:400px;
+  display: flex;
+}
+#cart{
+  margin-left: 10px;
+}

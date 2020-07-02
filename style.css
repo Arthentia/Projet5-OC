@@ -1,8 +1,9 @@
 
-.produits {
+#produits {
     max-width: 800px;
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     box-sizing: border-box;
     border: 2px solid #EEE;
@@ -10,7 +11,7 @@
     padding: 10px;
   }
 
-#ours,#cameras, #meubles{
+#ours1, #ours2, #cameras, #meubles{
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -22,9 +23,16 @@ form > #quantite{
 }
 
 .cartbox{
-  margin-left:400px;
+  margin-left:1000px;
   display: flex;
 }
 #cart{
   margin-left: 10px;
+}
+
+#info{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  
 }

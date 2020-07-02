@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <link href="fontawesome-free-5.13.0-web/css/all.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Orinoco - Ours en peluche</title> 
+    
+</head>
+
+
+<body>
+    <img src="images/teddy_1.jpg" alt="photo ours" height="80"/>
+<div id="nom"></div>
+<div id="prix"></div>
+<div id="couleur"></div>
+<div class="cartbox">
+    <i class="fas fa-shopping-cart"></i>
+    <div id="cart">0</div>
+    <div id="prixtotal"></div>
+</div>
+
+    <form id="colorform">
+        <label for="colorForm">Couleur:</label>
+        <select name="colorForm" id="colorForm">
+        </select>
+    </form>
+    <p>
+        <ul id="persos"></ul>
+    </p>
+    <form id="cartform">
+        
+        <label for="quantite">Quantité:</label>
+        <input type="qty" name="quantite" id="quantite" value="1" required>
+        <input type="button" onclick="decrementValue()" value="-">
+        <input type="button" onclick="incrementValue()" value="+">
+        <input type="submit"  value="Ajouter au panier">
+        
+
+    </form>
+    <div id="total"></div>
+    <script type="text/javascript" src="ours.js"></script>
+    <script type="text/javascript" src="cart.js"></script>
+    
+</body>

@@ -36,3 +36,10 @@ form > #quantite{
   align-items: center;
   
 }
+#prixtotal{
+  margin-left: 40px;
+}
+
+a{
+  color:black;
+}

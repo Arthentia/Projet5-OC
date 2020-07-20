@@ -1,4 +1,6 @@
 let content = document.getElementById("produits");
+let productnumber = document.getElementById("productnumber");
+productnumber.innerText = localStorage.getItem("cartNumbers");
 
 
 
@@ -14,7 +16,7 @@ fetch("http://localhost:3000/api/teddies/")
       img.style.width = "250px";
       content.appendChild(img);
       content.innerHTML += `<a href="ours.html?id=${teddy._id}">${teddy.name}</a>
-        <p>Prix: ${teddy.price} €</p>`
+        <p>Prix: ${teddy.price / 100} €</p>`
     });
 
   });

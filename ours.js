@@ -8,6 +8,7 @@ let id = urlObject.searchParams.get('id');
 console.log(id);
 
 
+
 fetch("http://localhost:3000/api/teddies/" + id)
   .then(response => response.json())
   .then(norbert => {
@@ -23,11 +24,13 @@ fetch("http://localhost:3000/api/teddies/" + id)
     nom.appendChild(myName);
 
     let myPrice = document.createElement('p');
-    myPrice.innerHTML = `${norbert.price} €`;
+    myPrice.innerHTML = `${norbert.price / 100} €`;
     prix.appendChild(myPrice);
 
     remplissage(norbert);
+
   });
+
 
 
 

@@ -1,6 +1,7 @@
 let content = document.getElementById("produits");
 let productnumber = document.getElementById("productnumber");
-productnumber.innerText = localStorage.getItem("cartNumbers");
+productnumber.innerHTML = localStorage.getItem("cartNumbers");
+let cartNumbers = localStorage.getItem("cartNumbers");
 
 
 
@@ -8,7 +9,6 @@ productnumber.innerText = localStorage.getItem("cartNumbers");
 fetch("http://localhost:3000/api/teddies/")
   .then(response => response.json())
   .then(teddies => {
-    console.log(teddies);
     teddies.forEach(teddy => {
       let img = document.createElement("img");
       img.src = teddy.imageUrl;
@@ -16,7 +16,14 @@ fetch("http://localhost:3000/api/teddies/")
       img.style.width = "250px";
       content.appendChild(img);
       content.innerHTML += `<a href="ours.html?id=${teddy._id}">${teddy.name}</a>
-        <p>Prix: ${teddy.price / 100} €</p>`
+        <p>Prix: ${teddy.price / 100},00 €</p>`
     });
 
   });
+
+
+if (cartNumbers) {
+  productnumber.innerText = localStorage.getItem("cartNumbers");
+} else {
+  productnumber.innerText = "0";
+}

@@ -13,17 +13,25 @@
 
 
 <body>
+    <header>
+
+        <a title="index" href="index.html">
+            <div class="logo"><img src="images/logo.png" alt="logo" id="logo"></div>
+        </a>
+        <div class="cartbox">
+            <a title="panier" href="cart.html"><i class="fas fa-shopping-cart" id="cartlogo"></i>
+                <div id="productnumber">0</div>
+            </a>
+        </div>
+
+    </header>
     <div id="info">
         <div id="img"></div>
         <div id="nom"></div>
         <div id="prix"></div>
         <div id="couleur"></div>
 
-        <div class="cartbox">
-            <a title="panier" href="cart.html"> <i class="fas fa-shopping-cart"></i></a>
-            <div id="productnumber">0</div>
-            <div id="prixtotal"></div>
-        </div>
+
 
         <form id="colorform">
             <label for="colorForm">Couleur:</label>
@@ -31,7 +39,7 @@
             </select>
         </form>
         <p>
-        <ul id="persos"></ul>
+
         </p>
         <form id="cartform">
 

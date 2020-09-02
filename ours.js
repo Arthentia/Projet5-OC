@@ -5,14 +5,14 @@ let prix = document.getElementById('prix');
 let url = window.location.href;
 let urlObject = new URL(url);
 let id = urlObject.searchParams.get('id');
-console.log(id);
+
+
 
 
 
 fetch("http://localhost:3000/api/teddies/" + id)
   .then(response => response.json())
   .then(norbert => {
-    console.log(norbert);
     let img = document.createElement("img");
     img.src = norbert.imageUrl;
     img.style.height = "200px";
@@ -24,7 +24,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
     nom.appendChild(myName);
 
     let myPrice = document.createElement('p');
-    myPrice.innerHTML = `${norbert.price / 100} €`;
+    myPrice.innerHTML = `${norbert.price / 100},00 €`;
     prix.appendChild(myPrice);
 
     remplissage(norbert);
@@ -37,7 +37,6 @@ fetch("http://localhost:3000/api/teddies/" + id)
 function remplissage(jsonObj) {
   let myColor = document.createElement('p');
   let couleurs = jsonObj['colors'];
-  console.log(couleurs);
   remplissageCouleur(couleurs);
 }
 

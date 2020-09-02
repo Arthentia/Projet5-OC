@@ -12,9 +12,60 @@
 </head>
 
 <body>
-    <div id="productnumber">a</div>
-    <div id="items"></div>
-    <script type="text/javascript" src="cart.js"></script>
+    <header>
+        <a title="index" href="index.html">
+            <div class="logo"><img src="images/logo.png" alt="logo" id="logo"></div>
+        </a>
+        <div class="cartbox">
+            <a title="panier" href="cart.html"><i class="fas fa-shopping-cart" id="cartlogo"></i>
+                <div id="productnumber">0</div>
+            </a>
+        </div>
+
+    </header>
+
+    <div id=products-container>
+        <div id="product-header">
+            <h5 class="produit-nom">PRODUIT</h5>
+            <h5 class="prix">PRIX</h5>
+            <h5 class="quantite">QUANTITE</h5>
+            <h5 class="total">TOTAL</h5>
+        </div>
+        <div class="products"></div>
+        <div id="totalCost"></div>
+    </div>
+
+
+
+    <form id="pay_form">
+        Informations:
+        <div>
+            <label for="lastName">Nom: </label>
+            <input type="text" id="lastName" name="user_name">
+        </div>
+        <div>
+            <label for="firstName">Prénom: </label>
+            <input type="text" id="firstName" name="user_name">
+        </div>
+        <div>
+            <label for="mail">E-mail: </label>
+            <input type="email" id="mail" name="user_mail">
+        </div>
+        <div>
+            <label for="address">Adresse: </label>
+            <input type="text" id="address" name="user_address">
+        </div>
+        <div>
+            <label for="city">Ville: </label>
+            <input type="text" id="city" name="user_city">
+        </div>
+        <div class="form-example">
+            <input type="submit" value="Valider mon panier">
+        </div>
+    </form>
+
+
 </body>
+<script type="text/javascript" src="cart.js"></script>
 
 </html>

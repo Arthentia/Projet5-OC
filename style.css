@@ -1,14 +1,15 @@
 
 #produits {
-    max-width: 800px;
+    max-width: 500px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
     border: 2px solid #EEE;
-    margin: 30px;
+    margin: auto;
     padding: 10px;
+    margin-top: 40px;
   }
 
 #ours1, #ours2, #cameras, #meubles{
@@ -21,13 +22,40 @@ form > #quantite{
     width:20px;
     text-align: center;
 }
+header{
+  background:black;
+  height: 100px;
+}
 
 .cartbox{
-  margin-left:1000px;
-  display: flex;
+  height:30px;
+  padding:5px;
+  margin-left: 95%;
+  margin-top:-70px;
+  border: 1px solid white;
+  font-size: 25px;
+  width:60px;
+
 }
-#cart{
+
+header{
+display: flex;
+flex-wrap: wrap;
+}
+
+
+header > a{
+  padding-top: 5px;
+  margin:auto;
+}
+
+.cartbox:hover{
+  border: 3px solid white;
+}
+
+#productnumber{
   margin-left: 10px;
+  color:white;
 }
 
 #info{
@@ -42,4 +70,171 @@ form > #quantite{
 
 a{
   color:black;
+}
+.cartbox > a{
+ color:white;
+}
+
+img{
+  width:200px;
+}
+
+#pay_form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  margin-top: 100px;
+  border: 2px solid black;
+  max-width: 400px;
+}
+#pay_form > div{
+  margin-top: 10px;
+}
+
+
+#products-container{
+  width: 650px;
+  margin: auto;
+  
+}
+
+#product-header{
+  width:100%;
+  width: 650px;
+  display:flex;
+  justify-content: flex-start;
+  margin:0 auto;
+}
+
+.produit-nom{
+  width:45%;
+  border-bottom: 1px solid black;
+}
+
+.prixUnite{
+  width:15%;
+  display:flex;
+  align-items:center;
+  margin-left: 100px;
+  border-bottom: 1px solid black;
+
+}
+
+.quantiteUnite{
+  width:30%;
+  display:flex;
+  align-items:center;
+  /* text-align: center; */
+  border-bottom: 1px solid black;
+  margin-left: 40px;
+  /* border:1px solid green; */
+  /* justify-content: center; */
+  
+}
+
+.prix{
+  width:15%;
+  border-bottom: 1px solid black;
+  display:flex;
+  align-items:center;
+}
+
+
+.quantite{
+  width:31%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid black;
+
+
+}
+
+.total{
+  width:10%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.products{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+
+.product{
+  width:44%;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  border-bottom: 1px solid black;
+
+}
+
+.product > img{
+  width:120px;
+  margin-top: -50px;
+
+}
+
+ 
+#totalCost{
+  text-align: center;
+  margin-top: 50px;
+}
+
+
+#deletebtn{
+  height: 20px;
+  margin: auto;
+  margin-left: 0;
+  margin-top: 40px;
+}
+
+#info{
+ margin-top:40px;
+}
+#orderId{
+  text-align: center;
+  font-size:20px;
+}
+
+
+h1{
+  text-align: center;
+}
+
+#totalCost{
+  font-size:20px;
+}
+
+.button-minus, .button-plus{
+  margin: 5px;
+  
+}
+
+a{
+  text-decoration:none;
+  display:flex;
+}
+
+.product_order{
+  display: flex;
+  flex-direction: column;
+  margin-left: 60px;
+}
+.product_order > img{
+  margin-left: -75px;
+}
+.products_order{
+  display: flex;
+  margin-top: 100px;
+}
+
+.prix_order, .quantite_order, .total_order{
+  padding:50px;
 }

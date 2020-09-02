@@ -1,31 +1,22 @@
 
 let totalcart = 0;
-let cart = document.querySelector('productnumber');
 let form = document.getElementById('cartform');
-let totalprice = document.getElementById('prixtotal');
 let inCart = 0;
+
 
 
 fetch("http://localhost:3000/api/teddies/" + id)
     .then(response => response.json())
     .then(norbert => {
-        console.log(norbert.price);
-
         let myPrice = document.createElement('p');
-        myPrice.innerHTML = `${norbert.price} €`;
-        totalprice.appendChild(myPrice);
-        totalprice = JSON.stringify(totalprice);
-        totalprice = parseInt(totalprice);
-        console.log(totalprice);
-        console.log(typeof totalprice);
-        totalcost(totalprice);
-
+        myPrice.innerHTML = `${norbert.price / 100}€`;
+        myPrice = parseInt(myPrice);
 
         form.addEventListener("submit", function (e) {
-            let quantite = form.elements.quantite.value;
+            let quantite = parseInt(form.elements.quantite.value);
 
             if (quantite > 0) {
-                totalcart = totalcart + parseInt(quantite);
+                totalcart = totalcart + quantite;
             }
             else {
                 totalcart = totalcart;
@@ -34,47 +25,78 @@ fetch("http://localhost:3000/api/teddies/" + id)
             console.log("total cart = " + totalcart);
             document.getElementById('productnumber').innerText = totalcart;
             cartNumbers();
-            setItems(norbert);
+            norbert.inCart = quantite;
+            setItems(norbert, quantite);
+            totalCost(norbert);
+
         });
     });
 
 
 
-function setItems(norbert) {
-    console.log("My product is", norbert);
+function totalCost(norbert) {
+    let cartCost = localStorage.getItem('totalCost')
 
-    let cartItems = localStorage.setItem("itemsinCart", JSON.stringify(norbert));
-    if (cartItems != null) {
-        cartItems[norbert.name].inCart += 1;
+    console.log(typeof cartCost);
+    if (cartCost != null) {
+        cartCost = parseInt(cartCost);
+        localStorage.setItem("totalCost", cartCost + ((norbert.price) / 100));
     } else {
-        norbert.inCart = 1;
-        cartItems = {
-            [norbert.name]: norbert
-        }
+        localStorage.setItem("totalCost", (norbert.price) / 100);
     }
 
 }
 
 
+function setItems(norbert, quantite) {
 
-function totalcost(quantite, totalprice) {
-    console.log(typeof quantite);
-    console.log(typeof totalprice);
+    let cartItems = localStorage.getItem("itemsInCart");
+    cartItems = JSON.parse(cartItems);
+
+
+    if (cartItems != null) {
+        if (cartItems[norbert.name] == undefined) {
+            cartItems = {
+                ...cartItems,
+                [norbert.name]: norbert,
+                // [norbert.name].inCart: 0;
+            }
+
+        } else {
+            cartItems[norbert.name].inCart += quantite;
+
+        }
+    }
+    else {
+        norbert.inCart = quantite;
+
+        cartItems = {
+            [norbert.name]: norbert
+        }
+    }
+    localStorage.setItem("itemsInCart", JSON.stringify(cartItems));
+    localStorage.setItem("inCart", cartItems[norbert.name].inCart);
 }
+
+
+
+
 
 
 
 function incrementValue() {
     let quantite = parseInt(document.getElementById('quantite').value);
     quantite++;
-    console.log("qty " + quantite)
+    console.log("qty " + quantite);
     document.getElementById('quantite').value = quantite;
 }
 
 function decrementValue() {
     let quantite = parseInt(document.getElementById('quantite').value);
     quantite--;
-    console.log("qty " + quantite)
+    if (quantite < 0) {
+        quantite = 0;
+    }
     document.getElementById('quantite').value = quantite;
 
 }
@@ -96,6 +118,10 @@ function onLoadCartNumbers() {
     if (productNumbers > 0) {
         totalcart = productNumbers + totalcart;
     }
+    if (productNumbers = 0) {
+        document.getElementById('productnumber').textContent = 0;
+    }
+
 }
 
 onLoadCartNumbers()

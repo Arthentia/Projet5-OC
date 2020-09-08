@@ -15,6 +15,8 @@ let items_order = document.querySelector(".products_order");
 let totalCost = document.getElementById("totalCost");
 totalCost.innerHTML = "Panier total: " + localStorage.getItem("totalCost") + "€";
 
+
+//Affichage du panier
 function displayCart() {
 
     if (cartItems && items_order) {
@@ -25,26 +27,21 @@ function displayCart() {
             console.log(item.name);
             items_order.innerHTML += `
                                 <div class="product_order">
-                                <img src = "${item.imageUrl}">
-                                    ${item.name}     
+                                <div class="product_name">
+                                ${item.name}
                                 </div>
                                 
-                                <div class="prix_order">
-                               ${item.price / 100},00€
+                                <img src = "${item.imageUrl}">
                                 </div>
+
                                 <div class="quantite_order">
-                                ${item.inCart}
+                                Quantité: ${item.inCart}
                                 </div>
-                                <div class="total_order">
-                                ${item.inCart * (item.price / 100)},00 €
                                 </div>
                 `
-
-
         })
     }
 }
 
 localStorage.clear();
-
 displayCart();

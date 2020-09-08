@@ -21,7 +21,7 @@ fetch("http://localhost:3000/api/teddies/")
 
   });
 
-
+//Afficher 0 si le panier est vide
 if (cartNumbers) {
   productnumber.innerText = localStorage.getItem("cartNumbers");
 } else {

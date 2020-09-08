@@ -79,6 +79,7 @@ img{
   width:200px;
 }
 
+/* Page panier */
 #pay_form{
   display: flex;
   flex-direction: column;
@@ -125,12 +126,8 @@ img{
   width:30%;
   display:flex;
   align-items:center;
-  /* text-align: center; */
   border-bottom: 1px solid black;
   margin-left: 40px;
-  /* border:1px solid green; */
-  /* justify-content: center; */
-  
 }
 
 .prix{
@@ -222,6 +219,8 @@ a{
   display:flex;
 }
 
+
+/* Page Commande */
 .product_order{
   display: flex;
   flex-direction: column;
@@ -229,12 +228,40 @@ a{
 }
 .product_order > img{
   margin-left: -75px;
+  width: 150px;
 }
 .products_order{
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   margin-top: 100px;
+  margin-left: 40px;
+  
+}
+.product_name{
+  display: flex;
+  margin-left: -25px;
 }
 
-.prix_order, .quantite_order, .total_order{
+.quantite_order, .total_order{
   padding:50px;
+}
+
+.product_box{
+  width:650px;
+  display:flex;
+  justify-content: center;
+  
+}
+
+@media screen and (max-width: 1500px){
+  .cartbox{
+    margin-left: 90%;
+  }
+}
+
+@media screen and (max-width: 800px){
+  .cartbox{
+    margin-left: 85%;
+  }
 }

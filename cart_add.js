@@ -33,7 +33,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
     });
 
 
-
+//Calcul du prix total du panier
 function totalCost(norbert) {
     let cartCost = localStorage.getItem('totalCost')
 
@@ -47,7 +47,7 @@ function totalCost(norbert) {
 
 }
 
-
+//Choisir la quantité à ajouter
 function setItems(norbert, quantite) {
 
     let cartItems = localStorage.getItem("itemsInCart");
@@ -59,7 +59,6 @@ function setItems(norbert, quantite) {
             cartItems = {
                 ...cartItems,
                 [norbert.name]: norbert,
-                // [norbert.name].inCart: 0;
             }
 
         } else {
@@ -83,7 +82,7 @@ function setItems(norbert, quantite) {
 
 
 
-
+//Bouton +
 function incrementValue() {
     let quantite = parseInt(document.getElementById('quantite').value);
     quantite++;
@@ -91,6 +90,7 @@ function incrementValue() {
     document.getElementById('quantite').value = quantite;
 }
 
+//Bouton -
 function decrementValue() {
     let quantite = parseInt(document.getElementById('quantite').value);
     quantite--;
@@ -103,8 +103,7 @@ function decrementValue() {
 
 
 function cartNumbers() {
-    localStorage.setItem('cartNumbers', totalcart)
-
+    localStorage.setItem('cartNumbers', totalcart);
 }
 
 function onLoadCartNumbers() {
@@ -118,9 +117,7 @@ function onLoadCartNumbers() {
     if (productNumbers > 0) {
         totalcart = productNumbers + totalcart;
     }
-    if (productNumbers = 0) {
-        document.getElementById('productnumber').textContent = 0;
-    }
+
 
 }
 

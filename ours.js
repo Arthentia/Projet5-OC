@@ -32,7 +32,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
   });
 
 
-
+//Liste déroulange des couleurs
 
 function remplissage(jsonObj) {
   let myColor = document.createElement('p');
@@ -47,12 +47,7 @@ function creerElementOption(texte, valeur) {
   return element;
 }
 
-// //obtenir couleur choisie
-// document.getElementById("colorForm").addEventListener("change", function (e) {
-//   console.log("Couleur choisie:" + e.target.value);
-// })
-
-// Remplit la liste déroulante des couleurs
+// Remplir la liste déroulante des couleurs
 function remplissageCouleur(couleurs) {
   var couleurElt = document.querySelector("select");
   couleurs.forEach(function (couleurs) {

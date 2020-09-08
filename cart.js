@@ -12,13 +12,20 @@ let mail = document.getElementById("mail");
 let firstName = document.getElementById("firstName");
 let address = document.getElementById("address");
 let city = document.getElementById("city");
+let itemsInCart = localStorage.getItem('itemsInCart');
+console.log(typeof firstName.value)
 
+//Afficher 0 si le panier est vide
 if (cartNumbers) {
     productnumber.innerText = localStorage.getItem("cartNumbers");
 } else {
     productnumber.innerText = "0";
 }
 
+
+
+
+//Envoie du formulaire et des ID produits
 let myForm = {
     "contact": {
         "firstName": "string",
@@ -31,7 +38,6 @@ let myForm = {
 }
 function order() {
 
-
     let requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -41,13 +47,10 @@ function order() {
     fetch("http://localhost:3000/api/teddies/order", requestOptions)
         .then(response => response.json())
         .then(orders => {
-            console.log(orders);
-            console.log(orders.orderId)
 
             localStorage.setItem("orderID", JSON.stringify(orders.orderId));
-            document.location = 'order.html';
+            // document.location = 'order.html';
         });
-
 
 }
 
@@ -59,12 +62,12 @@ function displayCart() {
     if (cartItems && items) {
         items.innerHTML = '';
         Object.values(cartItems).forEach(item => {
-
+            console.log(item.inCart)
             items.innerHTML += '';
             console.log(item.name);
-            items.innerHTML += `
+            items.innerHTML += `<div class="product_box">
                                 <div class="product">
-                                <input type = "button" id="deletebtn" onclick = "deleted()" value = "x"></input>
+                                <input type = "button" id="deletebtn" value = "x"></input>
                                 <img src = "${item.imageUrl}">
                                     ${item.name}     
                                 </div>
@@ -73,13 +76,14 @@ function displayCart() {
                                ${item.price / 100},00€
                                 </div>
                                 <div class="quantite">
-                                <input type="button" class="button-minus" onclick="decrementValue()" value="-"></input>
+                                <input type="button" class="button-minus"  value="-"></input>
                                 ${item.inCart}
                                 <input type="button" class="button-plus"  value="+"></input>
                                 </div>
                                 <div class="total">
                                 ${item.inCart * (item.price / 100)},00 €
                                 </div>
+                              </div>
                 `
             totalCost.innerHTML = "Panier total: " + localStorage.getItem("totalCost") + "€";
 
@@ -87,26 +91,49 @@ function displayCart() {
     }
 }
 
+displayCart()
+buttons()
+
+function buttons() {
+    let removeCartItemButtons = document.querySelectorAll("#deletebtn");
+    for (let i = 0; i < removeCartItemButtons.length; i++) {
+        let button = removeCartItemButtons[i]
+        button.addEventListener('click', removeCartItem);
+    }
+    let btnmoins = document.querySelectorAll(".button-minus");
+    for (let i = 0; i < removeCartItemButtons.length; i++) {
+        let button = btnmoins[i];
+        button.addEventListener('click', decrementValue);
+    }
+    function decrementValue(item) {
+        item.inCart--;
+        console.log(item.inCart)
+    }
+}
+function removeCartItem(event) {
+    let buttonClicked = event.target;
+    buttonClicked.parentElement.parentElement.remove()
+}
 
 
-// let btnmoins = document.getElementsByClassName("button-minus");
+// let btnmoins = document.querySelectorAll(".button-minus");
 
-// btnmoins[0].addEventListener('click', decrementValue, true);
+// btnmoins[0].addEventListener('click', decrementValue);
 
 // function decrementValue(item) {
 //     console.log("ok")
-//     item.inCart -= 1;
+//     item.inCart = 0
+// }
+// console.log(btnmoins[0]);
+
+// let btnplus = document.querySelectorAll(".button-plus");
+// btnplus[0].addEventListener('click', increaseValue())
+// function increaseValue() {
+//     item.inCart++;
 // }
 
-// document.getElementsByClassName("btnmoins").addEventListener("click", function (e) {
-//     console.log("ok")
 
-// });
-
-
-// onclick="decrementValue()
-{/* <input type = "button" id="deletebtn" onclick = "deleted()" value = "x"></input> */ }
-
+//Vérification du formulaire
 function verif() {
     if (!lastName.value || !firstName.value || !address.value || !mail.value || !city.value || cartItems == null) {
         console.log("invalide")
@@ -117,7 +144,7 @@ function verif() {
         localStorage.setItem("mail", mail.value)
         localStorage.setItem("city", city.value)
         order();
-
+        localStorage.setItem("form", JSON.stringify(form));
     }
 }
 
@@ -129,5 +156,4 @@ form.addEventListener("submit", function (e) {
 
 
 
-displayCart()
 

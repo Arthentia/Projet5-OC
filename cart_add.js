@@ -22,7 +22,6 @@ fetch("http://localhost:3000/api/teddies/" + id)
                 totalcart = totalcart;
             }
             e.preventDefault();
-            console.log("total cart = " + totalcart);
             document.getElementById('productnumber').innerText = totalcart;
             cartNumbers();
             norbert.inCart = quantite;
@@ -35,9 +34,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
 
 //Calcul du prix total du panier
 function totalCost(norbert) {
-    let cartCost = localStorage.getItem('totalCost')
-
-    console.log(typeof cartCost);
+    let cartCost = localStorage.getItem('totalCost');
     if (cartCost != null) {
         cartCost = parseInt(cartCost);
         localStorage.setItem("totalCost", cartCost + ((norbert.price) / 100));

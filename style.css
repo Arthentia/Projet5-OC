@@ -265,3 +265,9 @@ a{
     margin-left: 85%;
   }
 }
+
+#empty{
+  font-size: 30px;
+  text-align: center;
+  margin-top:300px;
+}

@@ -12,47 +12,26 @@ let mail = document.getElementById("mail");
 let firstName = document.getElementById("firstName");
 let address = document.getElementById("address");
 let city = document.getElementById("city");
-let itemsInCart = localStorage.getItem('itemsInCart');
-console.log(typeof firstName.value)
+let empty = document.getElementById("empty");
+let productscontainer = document.getElementById("products-container")
+
 
 //Afficher 0 si le panier est vide
 if (cartNumbers) {
-    productnumber.innerText = localStorage.getItem("cartNumbers");
+    productnumber.innerHTML = localStorage.getItem("cartNumbers");
+    empty.style.display = "none";
+
 } else {
-    productnumber.innerText = "0";
+    productnumber.innerHTML = "0";
+    empty.innerHTML = 'Votre panier est vide';
+    form.style.display = "none";
+    productscontainer.style.display = "none";
 }
 
 
 
 
-//Envoie du formulaire et des ID produits
-let myForm = {
-    "contact": {
-        "firstName": "string",
-        "lastName": "string",
-        "address": "string",
-        "city": "string",
-        "email": "string"
-    },
-    "products": ["5be9c8541c9d440000665243", "5beaa8bf1c9d440000a57d94"]
-}
-function order() {
 
-    let requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(myForm)
-    }
-
-    fetch("http://localhost:3000/api/teddies/order", requestOptions)
-        .then(response => response.json())
-        .then(orders => {
-
-            localStorage.setItem("orderID", JSON.stringify(orders.orderId));
-            // document.location = 'order.html';
-        });
-
-}
 
 
 // Affichage du panier
@@ -64,7 +43,6 @@ function displayCart() {
         Object.values(cartItems).forEach(item => {
             console.log(item.inCart)
             items.innerHTML += '';
-            console.log(item.name);
             items.innerHTML += `<div class="product_box">
                                 <div class="product">
                                 <input type = "button" id="deletebtn" value = "x"></input>
@@ -76,6 +54,7 @@ function displayCart() {
                                ${item.price / 100},00€
                                 </div>
                                 <div class="quantite">
+                               
                                 <input type="button" class="button-minus"  value="-"></input>
                                 ${item.inCart}
                                 <input type="button" class="button-plus"  value="+"></input>
@@ -99,21 +78,38 @@ function buttons() {
     for (let i = 0; i < removeCartItemButtons.length; i++) {
         let button = removeCartItemButtons[i]
         button.addEventListener('click', removeCartItem);
+        let newCart = cartItems.Norbert
+    }
+    function removeCartItem(event) {
+        let buttonClicked = event.target;
+        buttonClicked.parentElement.parentElement.remove()
+
     }
     let btnmoins = document.querySelectorAll(".button-minus");
-    for (let i = 0; i < removeCartItemButtons.length; i++) {
+    for (let i = 0; i < btnmoins.length; i++) {
         let button = btnmoins[i];
         button.addEventListener('click', decrementValue);
     }
-    function decrementValue(item) {
-        item.inCart--;
-        console.log(item.inCart)
+    function decrementValue() {
+        Object.values(cartItems).forEach(item => {
+            item.inCart--;
+            console.log(item.inCart)
+            quantite = document.getElementsByClassName('quantite')
+            quantite.innerHTML += item.inCart;
+        })
     }
 }
-function removeCartItem(event) {
-    let buttonClicked = event.target;
-    buttonClicked.parentElement.parentElement.remove()
+
+console.log(cartItems[1])
+// let removed = itemsInCart.splice(1, 1);
+console.log(typeof cartItems)
+console.log(cartItems.Norbert)
+
+function test() {
+    for (let i = 0; i <= cartNumbers.length; i++) {
+    }
 }
+test()
 
 
 // let btnmoins = document.querySelectorAll(".button-minus");
@@ -138,22 +134,51 @@ function verif() {
     if (!lastName.value || !firstName.value || !address.value || !mail.value || !city.value || cartItems == null) {
         console.log("invalide")
     } else {
+
         localStorage.setItem("lastName", lastName.value)
         localStorage.setItem("firstName", firstName.value)
         localStorage.setItem("address", address.value)
         localStorage.setItem("mail", mail.value)
-        localStorage.setItem("city", city.value)
-        order();
-        localStorage.setItem("form", JSON.stringify(form));
+        localStorage.setItem("city", city.value);
+
+        let myForm = {
+            "contact": {
+                "firstName": firstName.value,
+                "lastName": lastName.value,
+                "address": address.value,
+                "city": city.value,
+                "email": mail.value
+            },
+            "products": ["5be9c8541c9d440000665243", "5beaa8bf1c9d440000a57d94"]
+        }
+        order(myForm);
     }
 }
 
 form.addEventListener("submit", function (e) {
     e.preventDefault();
     verif();
-
 })
 
+//Envoie du formulaire et des ID produits
+function order(myForm) {
+
+    let requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(myForm)
+    }
+
+    fetch("http://localhost:3000/api/teddies/order", requestOptions)
+        .then(response => response.json())
+        .then(orders => {
+
+            localStorage.setItem("orderID", JSON.stringify(orders.orderId));
+            console.log(myForm)
+            // document.location = 'order.html';
+        });
+
+}
 
 
 

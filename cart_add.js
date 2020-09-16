@@ -1,4 +1,3 @@
-
 let totalcart = 0;
 let form = document.getElementById('cartform');
 let inCart = 0;
@@ -71,7 +70,6 @@ function setItems(norbert, quantite) {
         }
     }
     localStorage.setItem("itemsInCart", JSON.stringify(cartItems));
-    localStorage.setItem("inCart", cartItems[norbert.name].inCart);
 }
 
 

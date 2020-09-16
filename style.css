@@ -130,7 +130,7 @@ img{
   margin-left: 40px;
 }
 
-.prix{
+.prix, .prix_head{
   width:15%;
   border-bottom: 1px solid black;
   display:flex;
@@ -143,8 +143,6 @@ img{
   display: flex;
   align-items: center;
   border-bottom: 1px solid black;
-
-
 }
 
 .total{
@@ -210,8 +208,7 @@ h1{
 }
 
 .button-minus, .button-plus{
-  margin: 5px;
-  
+  margin:5px
 }
 
 a{

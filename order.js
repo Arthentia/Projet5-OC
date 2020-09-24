@@ -24,7 +24,6 @@ function displayCart() {
         Object.values(cartItems).forEach(item => {
 
             items_order.innerHTML += '';
-            console.log(item.name);
             items_order.innerHTML += `
                                 <div class="product_order">
                                 <div class="product_name">

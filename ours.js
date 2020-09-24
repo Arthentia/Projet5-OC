@@ -1,5 +1,5 @@
 
-let myImg = document.getElementById("img");
+let myImg = document.getElementById("product_img");
 let nom = document.getElementById('nom');
 let prix = document.getElementById('prix');
 let url = window.location.href;

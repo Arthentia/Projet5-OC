@@ -10,7 +10,8 @@ let firstName = document.getElementById("firstName");
 let address = document.getElementById("address");
 let city = document.getElementById("city");
 let empty = document.getElementById("empty");
-let productscontainer = document.getElementById("products-container")
+let productscontainer = document.getElementById("products-container");
+let totalCostUpdated = parseInt(localStorage.getItem("totalCost"))
 
 
 //Effacer page panier si celui-ci est vide
@@ -32,7 +33,6 @@ displayCartNumbers()
 
 
 
-
 // Affichage du panier
 
 function displayCart() {
@@ -42,21 +42,21 @@ function displayCart() {
         Object.values(cartItems).forEach(item => {
             items.innerHTML += '';
             items.innerHTML += `<div class="product_box">
-                                <div class="product"><input type = "button" id="deletebtn" value = "x"></input><img src = "${item.imageUrl}">${item.name}</div>
+                                <div class="product"><input type = "button" class="deletebtn" value = "x"><img src = "${item.imageUrl}">${item.name}</div>
                                 
-                                <div class="prix">${item.price / 100},00€</div>
+                                <div class="prix">${item.price / 100},00 €</div>
                                 
                                 <div class="quantite">
-                                <input type="button" class="button-minus"  value="-"></input>
+                                <input type="button" class="button-minus"  value="-">
                                 <div class="quantite_unit">${item.inCart}</div>
-                                <input type="button" class="button-plus"  value="+"></input>
+                                <input type="button" class="button-plus"  value="+">
                                 </div>
                                 <div class="total">
                                 ${item.inCart * (item.price / 100)},00 €
                                 </div>
                               </div>
                 `
-            totalCost.innerHTML = "Panier total: " + localStorage.getItem("totalCost") + "€";
+            totalCost.innerHTML = "Panier total: " + localStorage.getItem("totalCost") + " €";
 
         })
     }
@@ -65,17 +65,22 @@ function displayCart() {
 displayCart()
 buttons()
 
-// function UpdateCart(Element) {
-//     cartNumbers = localStorage.getItem("cartNumbers") - (Element.inCart);
-//     localStorage.setItem('cartNumbers', JSON.stringify(cartNumbers))
-//     productnumber.innerHTML = cartNumbers;
-//     delete Element;
-//     localStorage.setItem('itemsInCart', JSON.stringify(cartItems))
-//     displayCartNumbers()
-// }
+
+// Obtenir la taille du panier
+Object.size = function (cartItems) {
+    let cart_size = 0, key;
+    for (key in cartItems) {
+        if (cartItems.hasOwnProperty(key)) cart_size++;
+    }
+    return cart_size;
+};
+let cart_size = Object.size(cartItems);
+
+
+
 
 function buttons() {
-    let removeCartItemButtons = document.querySelectorAll("#deletebtn");
+    let removeCartItemButtons = document.querySelectorAll(".deletebtn");
     for (let i = 0; i < removeCartItemButtons.length; i++) {
         let button = removeCartItemButtons[i]
         button.addEventListener('click', removeCartItem);
@@ -84,44 +89,33 @@ function buttons() {
 
     function removeCartItem(event) {
         let buttonClicked = event.target;
+        console.log(buttonClicked)
         buttonClicked.parentElement.parentElement.remove()
         let productElt = buttonClicked.nextSibling.nextSibling;
         console.log(productElt);
 
-        if (productElt.textContent == 'Arnold') {
-            // UpdateCart(cartItems.Arnold)
-            cartNumbers = localStorage.getItem("cartNumbers") - (cartItems.Arnold.inCart);
-            localStorage.setItem('cartNumbers', JSON.stringify(cartNumbers))
-            productnumber.innerHTML = cartNumbers;
-            delete cartItems.Arnold
+        for (let i = 0; i <= cart_size - 1; i++) {
+            if (productElt.textContent == cartItems[Object.keys(cartItems)[i]].name) {
+                totalCostUpdated -= (cartItems[Object.keys(cartItems)[i]].price / 100) * cartItems[Object.keys(cartItems)[i]].inCart
+                localStorage.setItem("totalCost", totalCostUpdated)
+                totalCost.innerHTML = "Panier total: " + localStorage.getItem("totalCost") + " €";
+                cartNumbers = localStorage.getItem("cartNumbers") - (cartItems[Object.keys(cartItems)[i]].inCart);
+                localStorage.setItem('cartNumbers', JSON.stringify(cartNumbers))
+                productnumber.innerHTML = cartNumbers;
+                delete cartItems[Object.keys(cartItems)[i]]
+                console.log(cartItems)
+                localStorage.setItem('itemsInCart', JSON.stringify(cartItems))
+                cart_size--
+                AddID();
+
+            }
         }
-        if (productElt.textContent == 'Lenny and Carl') {
-            cartNumbers = localStorage.getItem("cartNumbers") - (cartItems['Lenny and Carl'].inCart);
-            localStorage.setItem('cartNumbers', JSON.stringify(cartNumbers))
-            productnumber.innerHTML = cartNumbers;
-            delete cartItems['Lenny and Carl'];
+
+        if (cart_size == 0) {
+            location.reload();
+            displayCartNumbers()
         }
-        if (productElt.textContent == 'Norbert') {
-            cartNumbers = localStorage.getItem("cartNumbers") - (cartItems.Norbert.inCart);
-            localStorage.setItem('cartNumbers', JSON.stringify(cartNumbers))
-            productnumber.innerHTML = cartNumbers;
-            delete cartItems.Norbert;
-        }
-        if (productElt.textContent == 'Gustav') {
-            cartNumbers = localStorage.getItem("cartNumbers") - (cartItems.Gustav.inCart);
-            localStorage.setItem('cartNumbers', JSON.stringify(cartNumbers))
-            productnumber.innerHTML = cartNumbers;
-            delete cartItems.Gustav;
-        }
-        if (productElt.textContent == 'Garfunkel') {
-            cartNumbers = localStorage.getItem("cartNumbers") - (cartItems.Garfunkel.inCart);
-            localStorage.setItem('cartNumbers', JSON.stringify(cartNumbers))
-            productnumber.innerHTML = cartNumbers;
-            delete cartItems.Garfunkel;
-        }
-        localStorage.setItem('itemsInCart', JSON.stringify(cartItems))
-        location.reload();
-        displayCartNumbers()
+
     }
 
 
@@ -135,51 +129,23 @@ function buttons() {
         let buttonClicked = event.target
         let quantite_unit = buttonClicked.previousSibling.previousSibling
         let productElt = buttonClicked.parentElement.previousSibling.previousSibling.previousSibling.previousSibling
+        let total_unit = buttonClicked.parentElement.nextSibling.nextSibling
 
-        if (productElt.textContent == 'Arnold') {
-            cartItems.Arnold.inCart++
-            quantite_unit.innerHTML = cartItems.Arnold.inCart
-
-
-        }
-        if (productElt.textContent == 'Lenny and Carl') {
-            cartItems['Lenny and Carl'].inCart++
-            quantite_unit.innerHTML = cartItems['Lenny and Carl'].inCart
-
-        }
-        if (productElt.textContent == 'Norbert') {
-            cartItems.Norbert.inCart++
-            quantite_unit.innerHTML = cartItems.Norbert.inCart
-        }
-        if (productElt.textContent == 'Gustav') {
-            cartItems.Gustav.inCart++
-            quantite_unit.innerHTML = cartItems.Gustav.inCart
-        }
-        if (productElt.textContent == 'Garfunkel') {
-            cartItems.Garfunkel.inCart++
-            quantite_unit.innerHTML = cartItems.Garfunkel.inCart
+        for (let i = 0; i <= cart_size - 1; i++) {
+            if (productElt.textContent == cartItems[Object.keys(cartItems)[i]].name) {
+                cartItems[Object.keys(cartItems)[i]].inCart++
+                quantite_unit.innerHTML = cartItems[Object.keys(cartItems)[i]].inCart
+                total_unit.innerHTML = (cartItems[Object.keys(cartItems)[i]].inCart * cartItems[Object.keys(cartItems)[i]].price) / 100 + ',00 €'
+                totalCostUpdated += (cartItems[Object.keys(cartItems)[i]].price / 100)
+                localStorage.setItem("totalCost", totalCostUpdated)
+                AddID();
+            }
         }
 
         let plus = true
         UpdateCartNumbers(plus)
 
     }
-
-    function UpdateCartNumbers(plus) {
-        localStorage.setItem('itemsInCart', JSON.stringify(cartItems));
-        cartNumbers = parseInt(cartNumbers)
-
-        //Vérifie si le bouton cliqué est le bouton + ou -
-        if (plus == true) {
-            cartNumbers++
-        }
-        else {
-            cartNumbers--
-        }
-        localStorage.setItem('cartNumbers', JSON.stringify(cartNumbers));
-        productnumber.innerHTML = localStorage.getItem("cartNumbers");
-    }
-
 
     let btnmoins = document.querySelectorAll(".button-minus");
     for (let i = 0; i < btnmoins.length; i++) {
@@ -190,83 +156,72 @@ function buttons() {
         let buttonClicked = event.target
         let quantite_unit = buttonClicked.nextSibling.nextSibling
         let productElt = buttonClicked.parentElement.previousSibling.previousSibling.previousSibling.previousSibling
+        let total_unit = buttonClicked.parentElement.nextSibling.nextSibling
 
-        if (productElt.textContent == 'Arnold') {
-            if (cartItems.Arnold.inCart == 1) {
-                delete cartItems.Arnold
-                localStorage.setItem('itemsInCart', JSON.stringify(cartItems))
-                location.reload();
-                UpdateCartNumbers()
-            }
-            else {
-                cartItems.Arnold.inCart--
-                quantite_unit.innerHTML = cartItems.Arnold.inCart
-                UpdateCartNumbers()
-            }
-        }
-        if (productElt.textContent == 'Lenny and Carl') {
-            if (cartItems['Lenny and Carl'].inCart == 1) {
-                delete cartItems['Lenny and Carl']
-                localStorage.setItem('itemsInCart', JSON.stringify(cartItems))
-                location.reload();
-                UpdateCartNumbers()
-            }
-            else {
-                cartItems['Lenny and Carl'].inCart--
-                quantite_unit.innerHTML = cartItems['Lenny and Carl'].inCart
-                UpdateCartNumbers()
-            }
-        }
-        if (productElt.textContent == 'Norbert') {
-            if (cartItems.Norbert.inCart == 1) {
-                delete cartItems.Norbert
-                localStorage.setItem('itemsInCart', JSON.stringify(cartItems))
-                location.reload();
-                UpdateCartNumbers()
-            }
-            else {
-                cartItems.Norbert.inCart--
-                quantite_unit.innerHTML = cartItems.Norbert.inCart
-                UpdateCartNumbers()
-            }
-        }
-        if (productElt.textContent == 'Gustav') {
-            if (cartItems.Gustav.inCart == 1) {
-                delete cartItems.Gustav
-                localStorage.setItem('itemsInCart', JSON.stringify(cartItems))
-                location.reload();
-                UpdateCartNumbers()
-            }
-            else {
-                cartItems.Gustav.inCart--
-                quantite_unit.innerHTML = cartItems.Gustav.inCart
-                UpdateCartNumbers()
-            }
-        }
-        if (productElt.textContent == 'Garfunkel') {
-            if (cartItems.Garfunkel.inCart == 1) {
-                delete cartItems.Garfunkel
-                localStorage.setItem('itemsInCart', JSON.stringify(cartItems))
-                location.reload();
-                UpdateCartNumbers()
-            }
-            else {
-                cartItems.Garfunkel.inCart--
-                quantite_unit.innerHTML = cartItems.Garfunkel.inCart
-                UpdateCartNumbers()
-            }
-        }
 
+        for (let i = 0; i <= cart_size - 1; i++) {
+
+            if (cartItems[Object.keys(cartItems)[i]].inCart == 1) {
+                totalCostUpdated -= (cartItems[Object.keys(cartItems)[i]].price / 100)
+                localStorage.setItem("totalCost", totalCostUpdated)
+                cartNumbers = localStorage.getItem("cartNumbers") - (cartItems[Object.keys(cartItems)[i]].inCart);
+                localStorage.setItem('cartNumbers', JSON.stringify(cartNumbers))
+                productnumber.innerHTML = cartNumbers;
+                delete cartItems[Object.keys(cartItems)[i]]
+                localStorage.setItem('itemsInCart', JSON.stringify(cartItems))
+                location.reload();
+                AddID();
+
+
+            }
+            if (productElt.textContent == cartItems[Object.keys(cartItems)[i]].name) {
+                cartItems[Object.keys(cartItems)[i]].inCart--
+                quantite_unit.innerHTML = cartItems[Object.keys(cartItems)[i]].inCart
+                total_unit.innerHTML = (cartItems[Object.keys(cartItems)[i]].inCart * cartItems[Object.keys(cartItems)[i]].price) / 100 + ',00 €'
+                totalCostUpdated -= (cartItems[Object.keys(cartItems)[i]].price / 100)
+                localStorage.setItem("totalCost", totalCostUpdated)
+                UpdateCartNumbers()
+                AddID();
+            }
+
+
+        }
         localStorage.setItem('itemsInCart', JSON.stringify(cartItems))
-
     }
 
 }
 
+//Mise à jour du nombre total d'items dans le panier
+function UpdateCartNumbers(plus) {
+    localStorage.setItem('itemsInCart', JSON.stringify(cartItems));
+    cartNumbers = parseInt(cartNumbers)
 
+    //Vérifie si le bouton cliqué est le bouton + ou -
+    if (plus == true) {
+        cartNumbers++
+    }
+    else {
+        cartNumbers--
+    }
+    localStorage.setItem('cartNumbers', JSON.stringify(cartNumbers));
+    totalCost.innerHTML = "Panier total: " + localStorage.getItem("totalCost") + " €";
+    productnumber.innerHTML = localStorage.getItem("cartNumbers");
+}
 
-
-
+//Ajouter les ID des produits dans un tableau
+let products = []
+function AddID() {
+    products = []
+    for (i = 0; i < cart_size; i++) {
+        if (cartItems[Object.keys(cartItems)[i]].inCart > 1) {
+            for (j = 0; j < cartItems[Object.keys(cartItems)[i]].inCart - 1; j++) {
+                products.push(cartItems[Object.keys(cartItems)[i]]._id)
+            }
+        }
+        products.push(cartItems[Object.keys(cartItems)[i]]._id)
+    }
+}
+AddID()
 
 //Vérification du formulaire
 function verif() {
@@ -288,7 +243,7 @@ function verif() {
                 "city": city.value,
                 "email": mail.value
             },
-            "products": ["5be9c8541c9d440000665243", "5beaa8bf1c9d440000a57d94"]
+            products
         }
         order(myForm);
     }

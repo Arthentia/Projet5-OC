@@ -1,6 +1,7 @@
 let totalcart = 0;
 let form = document.getElementById('cartform');
 let inCart = 0;
+let quantite = parseInt(document.getElementById('quantite').value);
 
 
 
@@ -26,9 +27,12 @@ fetch("http://localhost:3000/api/teddies/" + id)
             norbert.inCart = quantite;
             setItems(norbert, quantite);
             totalCost(norbert);
+            document.getElementById('cartform').reset()
+
 
         });
     });
+
 
 
 //Calcul du prix total du panier
@@ -36,9 +40,10 @@ function totalCost(norbert) {
     let cartCost = localStorage.getItem('totalCost');
     if (cartCost != null) {
         cartCost = parseInt(cartCost);
-        localStorage.setItem("totalCost", cartCost + ((norbert.price) / 100));
+        localStorage.setItem("totalCost", cartCost + ((norbert.price) / 100) * quantite);
+
     } else {
-        localStorage.setItem("totalCost", (norbert.price) / 100);
+        localStorage.setItem("totalCost", (norbert.price) / 100 * quantite);
     }
 
 }
@@ -79,9 +84,8 @@ function setItems(norbert, quantite) {
 
 //Bouton +
 function incrementValue() {
-    let quantite = parseInt(document.getElementById('quantite').value);
+
     quantite++;
-    console.log("qty " + quantite);
     document.getElementById('quantite').value = quantite;
 }
 

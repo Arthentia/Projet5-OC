@@ -340,3 +340,31 @@ a{
   }
 
 }
+
+@media screen and (max-width: 440px){
+  .ours > a > img{
+    border:none;
+  }
+  .cartbox{
+    margin:auto;
+  
+    }
+
+  
+  }
+
+
+@media screen and (max-width: 350px){
+  .ours, .ours >a>img{
+    max-width: 100%;
+  }
+  .ours > a>img{
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 350px){
+  header{
+    height: 150px;
+  }
+}

@@ -171,8 +171,6 @@ function buttons() {
                 localStorage.setItem('itemsInCart', JSON.stringify(cartItems))
                 location.reload();
                 AddID();
-
-
             }
             if (productElt.textContent == cartItems[Object.keys(cartItems)[i]].name) {
                 cartItems[Object.keys(cartItems)[i]].inCart--

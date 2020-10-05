@@ -89,10 +89,8 @@ function buttons() {
 
     function removeCartItem(event) {
         let buttonClicked = event.target;
-        console.log(buttonClicked)
         buttonClicked.parentElement.parentElement.remove()
         let productElt = buttonClicked.nextSibling.nextSibling;
-        console.log(productElt);
 
         for (let i = 0; i <= cart_size - 1; i++) {
             if (productElt.textContent == cartItems[Object.keys(cartItems)[i]].name) {
@@ -103,7 +101,6 @@ function buttons() {
                 localStorage.setItem('cartNumbers', JSON.stringify(cartNumbers))
                 productnumber.innerHTML = cartNumbers;
                 delete cartItems[Object.keys(cartItems)[i]]
-                console.log(cartItems)
                 localStorage.setItem('itemsInCart', JSON.stringify(cartItems))
                 cart_size--
                 AddID();
@@ -224,7 +221,6 @@ AddID()
 //Vérification du formulaire
 function verif() {
     if (!lastName.value || !firstName.value || !address.value || !mail.value || !city.value || cartItems == null) {
-        console.log("invalide")
     } else {
 
         localStorage.setItem("lastName", lastName.value)
@@ -266,7 +262,6 @@ function order(myForm) {
         .then(orders => {
 
             localStorage.setItem("orderID", JSON.stringify(orders.orderId));
-            console.log(myForm)
             document.location = 'order.html';
         });
 

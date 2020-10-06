@@ -32,7 +32,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
   });
 
 
-//Liste déroulange des couleurs
+//Liste déroulante des couleurs
 
 function remplissage(jsonObj) {
   let myColor = document.createElement('p');

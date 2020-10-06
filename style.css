@@ -257,7 +257,7 @@ a{
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 100px;
-  margin-left: 40px;
+  margin-left: 60px;
   
 }
 .product_name{
@@ -352,6 +352,12 @@ a{
 
   
   }
+
+@media screen and (max-width: 415px){
+  .product_order{
+    margin-left: 0;
+  }
+}
 
 
 @media screen and (max-width: 350px){

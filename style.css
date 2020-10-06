@@ -368,9 +368,7 @@ a{
   .ours > a>img{
     height: 100%;
   }
-}
 
-@media screen and (max-width: 350px){
   header{
     height: 150px;
   }

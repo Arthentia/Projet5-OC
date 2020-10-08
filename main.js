@@ -2,9 +2,7 @@ let content = document.getElementById("produits");
 let productnumber = document.getElementById("productnumber");
 productnumber.innerHTML = localStorage.getItem("cartNumbers");
 let cartNumbers = localStorage.getItem("cartNumbers");
-
-
-
+let testcontent = document.getElementsByClassName("testcontent")
 
 fetch("http://localhost:3000/api/teddies/")
   .then(response => response.json())

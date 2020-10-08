@@ -9,7 +9,6 @@ let id = urlObject.searchParams.get('id');
 
 
 
-
 fetch("http://localhost:3000/api/teddies/" + id)
   .then(response => response.json())
   .then(norbert => {
